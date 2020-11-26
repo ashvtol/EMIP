@@ -51,25 +51,32 @@ class App extends React.Component {
         this.state = {
             lang: "Java",
             id: 0,
-            index: 0
+            index: 0,
+            cardData: data[0],
         };
         this.LoadDataFromMenu = this.LoadDataFromMenu.bind(this);
     }
 
-    LoadDataFromMenu(value){
+    LoadDataFromMenu(value) {
         this.setState((prev, current) => ({
             lang: value.lang,
             id: value.id,
-            index: indexMap[value.id]
+            index: indexMap[value.id],
         }), () => {
             console.log("Parent state changed by Menu :", value, "index:", this.state.index);
+            this.setState((prev, current) => ({
+                cardData: data[this.state.index]
+            }), () => {
+                console.log("Card data changed by Menu :", value, "index:", this.state.cardData);
+            });
         });
     }
+
     render() {
         return (
             <div>
                 <Menu data={languages} mutateMenu={this.LoadDataFromMenu}/>
-                <Cards data={data[this.state.index]}/>
+                <Cards data={this.state.cardData}/>
             </div>
         );
     }

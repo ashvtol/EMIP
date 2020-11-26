@@ -6,6 +6,11 @@
     background-color: #282c34;
 }
 
+.card-title{
+    font-size: 15px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .menu {
     position: absolute;
@@ -14,7 +19,22 @@
     z-index: 10;
 }
 
-.cardsColumn{
+.cardsColumn1{
+    position: absolute;
+    display: block;
+    right: 380px;
+    top: 70px;
+
+}
+
+.cardsColumn2{
+    position: absolute;
+    display: block;
+    right: 210px;
+    top: 70px;
+}
+
+.cardsColumn3{
     position: absolute;
     display: block;
     right: 40px;
@@ -24,17 +44,17 @@
 .cards {
     margin-bottom: 10px;
     width: 15rem !important;
-    height: 7rem !important;
-    padding-top: 1px;
+    height: auto;
+    padding: 1px 10px 1px;
     background: linear-gradient(to right, #ff00cc, #333399); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     /*margin-bottom: 30px;*/
     /*width: 200px;*/
     /*height: 100px;*/
     border-radius: 5px;
     text-align: center;
-    line-height: 30px;
-    /*font-size: 18px;*/
-    color: aliceblue;
+    /*line-height: 30px;*/
+    font-size: 12px !important;
+    /*color: aliceblue;*/
 }
 
 #menuItems {
