@@ -1,0 +1,33 @@
+.header{
+    position: absolute;
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: #282c34;
+}
+
+
+.menu {
+    position: absolute;
+    display: flex;
+    left: 50px;
+    z-index: 10;
+}
+
+#menuItems {
+    padding-left: 10px;
+    padding-top: 5px;
+    z-index: 11;
+}
+
+.btn {
+    height: 25px !important;
+    width: 100px;
+    line-height: 10px !important;
+    font-size: 12px;
+}
+
+.caret {
+    margin-left: 5px !important;
+}
+
