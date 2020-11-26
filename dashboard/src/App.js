@@ -3,6 +3,7 @@ import React from 'react';
 
 import data from './data/data_emip.json';
 import Menu from "./Menu";
+import Cards from "./Cards";
 
 let indexMap = new Array(data.length + 10).fill(0);
 
@@ -48,16 +49,27 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            language: "JAVA"
+            lang: "Java",
+            id: 0,
+            index: 0
         };
+        this.LoadDataFromMenu = this.LoadDataFromMenu.bind(this);
     }
 
+    LoadDataFromMenu(value){
+        this.setState((prev, current) => ({
+            lang: value.lang,
+            id: value.id,
+            index: indexMap[value.id]
+        }), () => {
+            console.log("Parent state changed by Menu :", value, "index:", this.state.index);
+        });
+    }
     render() {
-
         return (
             <div>
-                <Menu data={languages}/>
-                Hello World
+                <Menu data={languages} mutateMenu={this.LoadDataFromMenu}/>
+                <Cards data={data[this.state.index]}/>
             </div>
         );
     }

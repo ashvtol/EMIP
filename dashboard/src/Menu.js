@@ -8,9 +8,9 @@ class Menu extends React.Component {
             data: this.props.data,
             lang: Object.keys(this.props.data)[0],
             id: this.props.data["Java"][0],
-            index: 0
         }
-        console.log(this.state.data);
+        // console.log(this.state.data);
+        this.changeData = this.changeData.bind(this);
     }
 
     changeLanguage(value) {
@@ -18,7 +18,7 @@ class Menu extends React.Component {
             lang: value,
         }), () => {
             this.changeID(this.state.data[this.state.lang][0])
-            console.log("Languaged  to :", this.state.lang);
+            console.log("Language changed to :", this.state.lang);
         });
     }
 
@@ -30,12 +30,12 @@ class Menu extends React.Component {
         });
     }
 
-    changeData(value) {
-        this.setState((prev, current) => ({
-            index: value,
-        }), () => {
-            console.log("index changed  to :", this.state.id);
-        });
+    changeData() {
+        let value = {
+            "lang": this.state.lang,
+            "id": this.state.id,
+        }
+        this.props.mutateMenu(value);
     }
 
     render() {

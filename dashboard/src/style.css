@@ -1,4 +1,4 @@
-.header{
+.header {
     position: absolute;
     display: block;
     height: 40px;
@@ -12,6 +12,29 @@
     display: flex;
     left: 50px;
     z-index: 10;
+}
+
+.cardsColumn{
+    position: absolute;
+    display: block;
+    right: 40px;
+    top: 70px;
+}
+
+.cards {
+    margin-bottom: 10px;
+    width: 15rem !important;
+    height: 7rem !important;
+    padding-top: 1px;
+    background: linear-gradient(to right, #ff00cc, #333399); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*margin-bottom: 30px;*/
+    /*width: 200px;*/
+    /*height: 100px;*/
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    /*font-size: 18px;*/
+    color: aliceblue;
 }
 
 #menuItems {
