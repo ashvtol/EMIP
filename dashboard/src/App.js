@@ -2,8 +2,9 @@ import './App.css';
 import React from 'react';
 
 import data from './data/data_emip.json';
-import Menu from "./Menu";
+import HeaderMenu from "./HeaderMenu";
 import Cards from "./Cards";
+import CartesianPlot from "./CartesianPlot";
 
 let indexMap = new Array(data.length + 10).fill(0);
 
@@ -32,15 +33,11 @@ function initMenuItems() {
     // console.log(languages);
 }
 
-function getDataForIndex(index) {
-    let idx = indexMap[index];
-    return data[idx];
-}
 
 function init() {
     initIndexMap();
     initMenuItems();
-    getDataForIndex(5);
+    // console.log(data);
 }
 
 init();
@@ -53,6 +50,7 @@ class App extends React.Component {
             id: 0,
             index: 0,
             cardData: data[0],
+            cartesianPlotData: [data[0].rectangle_java, data[0].vehicle_java]
         };
         this.LoadDataFromMenu = this.LoadDataFromMenu.bind(this);
     }
@@ -65,7 +63,8 @@ class App extends React.Component {
         }), () => {
             console.log("Parent state changed by Menu :", value, "index:", this.state.index);
             this.setState((prev, current) => ({
-                cardData: data[this.state.index]
+                cardData: data[this.state.index],
+                cartesianPlotData: [data[this.state.index].rectangle_java, data[this.state.index].vehicle_java]
             }), () => {
                 console.log("Card data changed by Menu :", value, "index:", this.state.cardData);
             });
@@ -75,8 +74,9 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Menu data={languages} mutateMenu={this.LoadDataFromMenu}/>
+                <HeaderMenu data={languages} mutateMenu={this.LoadDataFromMenu}/>
                 <Cards data={this.state.cardData}/>
+                <CartesianPlot data={this.state.cartesianPlotData}/>
             </div>
         );
     }

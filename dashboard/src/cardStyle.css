@@ -1,12 +1,5 @@
-.header {
-    position: absolute;
-    display: block;
-    height: 40px;
-    width: 100%;
-    background-color: #282c34;
-}
-
-.card-title{
+/*Cards*/
+.card-title {
     font-size: 15px !important;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -19,7 +12,7 @@
     z-index: 10;
 }
 
-.cardsColumn1{
+.cardsColumn1 {
     position: absolute;
     display: block;
     right: 380px;
@@ -27,14 +20,14 @@
 
 }
 
-.cardsColumn2{
+.cardsColumn2 {
     position: absolute;
     display: block;
     right: 210px;
     top: 70px;
 }
 
-.cardsColumn3{
+.cardsColumn3 {
     position: absolute;
     display: block;
     right: 40px;
@@ -55,22 +48,5 @@
     /*line-height: 30px;*/
     font-size: 12px !important;
     /*color: aliceblue;*/
-}
-
-#menuItems {
-    padding-left: 10px;
-    padding-top: 5px;
-    z-index: 11;
-}
-
-.btn {
-    height: 25px !important;
-    width: 100px;
-    line-height: 10px !important;
-    font-size: 12px;
-}
-
-.caret {
-    margin-left: 5px !important;
 }
 

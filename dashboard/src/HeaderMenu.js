@@ -1,7 +1,7 @@
 import React from 'react';
-import './style.css'
+import './headerStyle.css'
 
-class Menu extends React.Component {
+class HeaderMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -82,4 +82,4 @@ class Menu extends React.Component {
     }
 }
 
-export default Menu;
+export default HeaderMenu;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css'
+import './cardStyle.css'
 import Card from 'react-bootstrap/Card'
 
 let label1Col = [];
