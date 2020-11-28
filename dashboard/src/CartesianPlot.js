@@ -6,6 +6,9 @@ import img3 from './data/rectangle_scala.jpg';
 import img4 from './data/vehicle_java.jpg';
 import img5 from './data/vehicle_python.jpg';
 import img6 from './data/vehicle_scala.jpg';
+import img7 from './data/q1.jpg';
+import img8 from './data/q2.jpg';
+
 import Button from 'react-bootstrap/Button'
 import {
     ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid
@@ -66,7 +69,7 @@ class CartesianPlot extends React.Component {
                     pt = img6;
                     break;
             }
-        } else {
+        } else if(this.state.index === 0){
             switch (this.state.lang) {
                 default :
                     pt = img1;
@@ -78,6 +81,10 @@ class CartesianPlot extends React.Component {
                     pt = img3;
                     break;
             }
+        } else if(this.state.index === 2){
+            pt = img7;
+        } else{
+            pt = img8;
         }
         return pt;
     }
@@ -113,6 +120,8 @@ class CartesianPlot extends React.Component {
                     <div className={"buttonDiv"}>
                         <Button variant="primary" onClick={e => this.changeIndex(e, 0)}>Rectangle</Button> {}
                         <Button variant="primary" onClick={e => this.changeIndex(e, 1)}>Vehicle</Button> {}
+                        <Button variant="primary" onClick={e => this.changeIndex(e, 2)}>Q. Rectangle</Button> {}
+                        <Button variant="primary" onClick={e => this.changeIndex(e, 3)}>Q. Vehicle</Button> {}
                     </div>
                 </div>
             </>

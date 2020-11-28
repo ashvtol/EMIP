@@ -12,6 +12,7 @@
     position: absolute !important;
     display: flow-root !important;
     top: 600px;
+    left: 10px;
     height: 100px;
     width: 1040px;
     /*background: #282c34;*/
