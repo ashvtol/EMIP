@@ -50,7 +50,10 @@ class App extends React.Component {
             id: 0,
             index: 0,
             cardData: data[0],
-            cartesianPlotData: [data[0].rectangle_java, data[0].vehicle_java]
+            cartesianPlotData: {
+                "coordinates": [data[0].rectangle_java, data[0].vehicle_java],
+                "lang": "Java"
+            }
         };
         this.LoadDataFromMenu = this.LoadDataFromMenu.bind(this);
     }
@@ -64,7 +67,10 @@ class App extends React.Component {
             console.log("Parent state changed by Menu :", value, "index:", this.state.index);
             this.setState((prev, current) => ({
                 cardData: data[this.state.index],
-                cartesianPlotData: [data[this.state.index].rectangle_java, data[this.state.index].vehicle_java]
+                cartesianPlotData: {
+                    "coordinates": [data[this.state.index].rectangle_java, data[this.state.index].vehicle_java],
+                    "lang": this.state.lang
+                }
             }), () => {
                 console.log("Card data changed by Menu :", value, "index:", this.state.cardData);
             });

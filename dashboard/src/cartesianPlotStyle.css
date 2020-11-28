@@ -3,7 +3,16 @@
     display: block !important;
     left: 50px;
     top: 70px;
-    height: 720px !important;
-    width: 1280px !important;
-    background-color: rgba(0,0,0,0.1);
+    height: 585px !important;
+    width: 1040px !important;
+    background-size: cover;
+}
+
+.buttonDiv {
+    position: absolute !important;
+    display: flow-root !important;
+    top: 600px;
+    height: 100px;
+    width: 1040px;
+    /*background: #282c34;*/
 }

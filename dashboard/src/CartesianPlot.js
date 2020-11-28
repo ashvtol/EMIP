@@ -1,7 +1,14 @@
 import React from 'react';
-import './cartesianPlotStyle.css'
+import './cartesianPlotStyle.css';
+import img1 from './data/rectangle_java.jpg';
+import img2 from './data/rectangle_python.jpg';
+import img3 from './data/rectangle_scala.jpg';
+import img4 from './data/vehicle_java.jpg';
+import img5 from './data/vehicle_python.jpg';
+import img6 from './data/vehicle_scala.jpg';
+import Button from 'react-bootstrap/Button'
 import {
-    ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip
+    ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid
 } from 'recharts';
 
 const data = [
@@ -14,39 +21,99 @@ const data = [
 ];
 
 class CartesianPlot extends React.Component {
-    static getDerivedStateFromProps(props, state) {
-        if (props !== state) {
-            return {
-                data: props.data
-            };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.data !== this.props.data) {
+            this.setState((prev, current) => ({
+                data: this.props.data.coordinates,
+                lang: this.props.data.lang
+            }), () => {
+                this.setState((prev, current) => ({
+                    imagePath: this.makePath()
+                }), () => {
+                    console.log("Data changed in cartesian plot", this.state.lang, this.state.imagePath);
+                })
+            });
+            // path = this.makePath();
         }
+    }
+
+    changeIndex(e, value) {
+        e.preventDefault();
+        this.setState((prev, current) => ({
+            index: value,
+        }), () => {
+            this.setState((prev, current) => ({
+                imagePath: this.makePath()
+            }), () => {
+                console.log("Button changed index to :", this.state.index);
+            })
+
+        });
+    }
+
+    makePath() {
+        let pt;
+        if (this.state.index === 1) {
+            switch (this.state.lang) {
+                default :
+                    pt = img4;
+                    break;
+                case "Python":
+                    pt = img5;
+                    break;
+                case "Scala":
+                    pt = img6;
+                    break;
+            }
+        } else {
+            switch (this.state.lang) {
+                default :
+                    pt = img1;
+                    break;
+                case "Python":
+                    pt = img2;
+                    break;
+                case "Scala":
+                    pt = img3;
+                    break;
+            }
+        }
+        return pt;
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            data: this.props.data,
+            data: this.props.data.coordinates,
+            lang: this.props.data.lang,
             index: 0,
+            imagePath: img1
         }
     }
+
 
     render() {
         return (
             <>
-                <div className={"plotDiv"}>
+                <div className={"plotDiv"} style={{backgroundImage: `url(${this.state.imagePath})`}}>
                     <ScatterChart
-                        width={1300}
-                        height={740}
+                        width={1060}
+                        height={605}
                         margin={{
-                            right: 20, bottom: 20, left: -60,
+                            right: 20, bottom: 20, left: 10,
                         }}
                     >
-                        {/*<CartesianGrid hide="true"/>*/}
-                        <XAxis hide="true" type="number" dataKey="x" name="stature" />
-                        <YAxis hide="true" type="number" dataKey="y" name="weight" />
+                        <CartesianGrid/>
+                        <XAxis hide="true" type="number" dataKey="x" name="stature"/>
+                        <YAxis hide="true" type="number" dataKey="y" name="weight"/>
                         <Tooltip cursor={{strokeDasharray: '3 3'}}/>
                         <Scatter name="A school" data={data} fill="#8884d8"/>
                     </ScatterChart>
+                    <div className={"buttonDiv"}>
+                        <Button variant="primary" onClick={e => this.changeIndex(e, 0)}>Rectangle</Button> {}
+                        <Button variant="primary" onClick={e => this.changeIndex(e, 1)}>Vehicle</Button> {}
+                    </div>
                 </div>
             </>
 
