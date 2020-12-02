@@ -38,6 +38,19 @@ class HeaderMenu extends React.Component {
         this.props.mutateMenu(value);
     }
 
+    selectRandomUser(){
+        let langList = Object.keys(this.state.data);
+        let randLang = langList[Math.floor(Math.random() * langList.length)];
+        let randIndex = Math.floor(Math.random() * this.state.data[randLang].length);
+        this.setState((prev, current) => ({
+            lang: randLang,
+            id: this.props.data[randLang][randIndex]
+        }), () => {
+            console.log("Random User Selected :", "id:", this.state.id, "lang:", randLang);
+        });
+        this.changeData();
+    }
+
     render() {
         return (
             <div>
@@ -72,6 +85,13 @@ class HeaderMenu extends React.Component {
                             <div className="dropdown">
                                 <button className="btn btn-primary dropdown-toggle" type="button"
                                         data-toggle="dropdown" onClick={() => this.changeData()}> GO
+                                </button>
+                            </div>
+                        </div>
+                        <div id={"menuItems"}>
+                            <div className="dropdown">
+                                <button className="btn btn-primary dropdown-toggle" type="button"
+                                        data-toggle="dropdown" onClick={() => this.selectRandomUser()}>Random User
                                 </button>
                             </div>
                         </div>

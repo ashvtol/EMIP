@@ -11,24 +11,37 @@ import img8 from './data/q2.jpg';
 
 import Button from 'react-bootstrap/Button'
 import {
-    ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid
+    XAxis, YAxis, CartesianGrid, Line, ComposedChart
 } from 'recharts';
 
-const data = [
-    {x: 100, y: 200, z: 200},
-    {x: 120, y: 100, z: 260},
-    {x: 170, y: 300, z: 400},
-    {x: 140, y: 250, z: 280},
-    {x: 150, y: 400, z: 500},
-    {x: 110, y: 280, z: 200},
-];
 
 class CartesianPlot extends React.Component {
+
+    transformData(data) {
+        let rectangleData = [], vehicleData = [];
+        let temp1 = data[0], temp2 = data[1];
+        let length = temp1['LX'].length;
+        let tempObj1, tempObj2;
+        for (let i = 0; i < length; i++) {
+            tempObj1 = {
+                "LX": temp1["LX"][i],
+                "LY": temp1["LY"][i],
+            }
+            tempObj2 = {
+                "LX": temp2["LX"][i],
+                "LY": temp2["LY"][i],
+            }
+            rectangleData.push(tempObj1);
+            vehicleData.push(tempObj2);
+        }
+
+        return [rectangleData, vehicleData];
+    }
 
     componentDidUpdate(prevProps) {
         if (prevProps.data !== this.props.data) {
             this.setState((prev, current) => ({
-                data: this.props.data.coordinates,
+                data: this.transformData(this.props.data.coordinates),
                 lang: this.props.data.lang
             }), () => {
                 this.setState((prev, current) => ({
@@ -37,7 +50,6 @@ class CartesianPlot extends React.Component {
                     console.log("Data changed in cartesian plot", this.state.lang, this.state.imagePath);
                 })
             });
-            // path = this.makePath();
         }
     }
 
@@ -69,7 +81,7 @@ class CartesianPlot extends React.Component {
                     pt = img6;
                     break;
             }
-        } else if(this.state.index === 0){
+        } else if (this.state.index === 0) {
             switch (this.state.lang) {
                 default :
                     pt = img1;
@@ -81,9 +93,9 @@ class CartesianPlot extends React.Component {
                     pt = img3;
                     break;
             }
-        } else if(this.state.index === 2){
+        } else if (this.state.index === 2) {
             pt = img7;
-        } else{
+        } else {
             pt = img8;
         }
         return pt;
@@ -92,11 +104,12 @@ class CartesianPlot extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: this.props.data.coordinates,
+            data: this.transformData(this.props.data.coordinates),
             lang: this.props.data.lang,
             index: 0,
             imagePath: img1
         }
+        // console.log(this.state.data);
     }
 
 
@@ -104,19 +117,21 @@ class CartesianPlot extends React.Component {
         return (
             <>
                 <div className={"plotDiv"} style={{backgroundImage: `url(${this.state.imagePath})`}}>
-                    <ScatterChart
+                    <ComposedChart
                         width={1060}
                         height={605}
                         margin={{
                             right: 20, bottom: 20, left: 10,
                         }}
+                        data={this.state.data[this.state.index]}
                     >
                         <CartesianGrid/>
-                        <XAxis hide="true" type="number" dataKey="x" name="stature"/>
-                        <YAxis hide="true" type="number" dataKey="y" name="weight"/>
-                        <Tooltip cursor={{strokeDasharray: '3 3'}}/>
-                        <Scatter name="A school" data={data} fill="#8884d8"/>
-                    </ScatterChart>
+                        <XAxis type="number" dataKey="LX" name="stature" domain={[0, 1920]} tickCount={10}/>
+                        <YAxis type="number" dataKey="LY" name="weight" domain={[0, 1080]} tickCount={10}/>
+                        {/*<Scatter name="A school" data={data} dot={{ stroke: 'red', strokeWidth: 0 }}/>*/}
+                        <Line type="monotone" dataKey="LY" dot={false}/>
+                        {/*<Tooltip cursor={{strokeDasharray: '3 3'}}/>*/}
+                    </ComposedChart>
                     <div className={"buttonDiv"}>
                         <Button variant="primary" onClick={e => this.changeIndex(e, 0)}>Rectangle</Button> {}
                         <Button variant="primary" onClick={e => this.changeIndex(e, 1)}>Vehicle</Button> {}
