@@ -16,6 +16,17 @@ import {
 
 
 class CartesianPlot extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: this.transformData(this.props.data.coordinates),
+            lang: this.props.data.lang,
+            index: 0,
+            imagePath: img1,
+            lineType: "monotone",
+        }
+        console.log(this.state.data);
+    }
 
     transformData(data) {
         let rectangleData = [], vehicleData = [];
@@ -51,6 +62,15 @@ class CartesianPlot extends React.Component {
                 })
             });
         }
+    }
+
+    changeLineType(e, value) {
+        e.preventDefault();
+        this.setState((prev, current) => ({
+            lineType: value,
+        }), () => {
+            console.log("Line Type changed to:", this.state.lineType);
+        });
     }
 
     changeIndex(e, value) {
@@ -101,18 +121,6 @@ class CartesianPlot extends React.Component {
         return pt;
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: this.transformData(this.props.data.coordinates),
-            lang: this.props.data.lang,
-            index: 0,
-            imagePath: img1
-        }
-        // console.log(this.state.data);
-    }
-
-
     render() {
         return (
             <>
@@ -125,22 +133,49 @@ class CartesianPlot extends React.Component {
                         }}
                         data={this.state.data[this.state.index]}
                     >
+                        <defs>
+                            <linearGradient id="colorUv" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="red" stopOpacity={0.3}/>
+                                <stop offset="5%" stopColor="purple" stopOpacity={0.7}/>
+                                <stop offset="98%" stopColor="red" stopOpacity={0.3}/>
+                            </linearGradient>
+                        </defs>
                         <CartesianGrid/>
                         <XAxis type="number" dataKey="LX" name="stature" domain={[0, 1920]} tickCount={10}/>
                         <YAxis type="number" dataKey="LY" name="weight" domain={[0, 1080]} tickCount={10}/>
-                        {/*<Scatter name="A school" data={data} dot={{ stroke: 'red', strokeWidth: 0 }}/>*/}
-                        <Line type="monotone" dataKey="LY" dot={false}/>
+                        <Line
+                            type={this.state.lineType}
+                            dataKey="LY"
+                            dot={false}
+                            fillOpacity={1}
+                            stroke="url(#colorUv)"
+                            strokeWidth={1.5}
+                        />
                         {/*<Tooltip cursor={{strokeDasharray: '3 3'}}/>*/}
                     </ComposedChart>
+                    <div className={"buttonHeading"}>
+                        Select Image
+                        <div className={"buttonHeadingLineFunctions"}>
+                            Select Line Function
+                        </div>
+                    </div>
                     <div className={"buttonDiv"}>
+                        <hr/>
                         <Button variant="primary" onClick={e => this.changeIndex(e, 0)}>Rectangle</Button> {}
                         <Button variant="primary" onClick={e => this.changeIndex(e, 1)}>Vehicle</Button> {}
                         <Button variant="primary" onClick={e => this.changeIndex(e, 2)}>Q. Rectangle</Button> {}
                         <Button variant="primary" onClick={e => this.changeIndex(e, 3)}>Q. Vehicle</Button> {}
+                        <div className={"lineTypeButtons"}>
+                            <Button variant="primary"
+                                    onClick={e => this.changeLineType(e, "monotone")}>Monotone</Button> {}
+                            <Button variant="primary" onClick={e => this.changeLineType(e, "linear")}>Linear</Button> {}
+                            <Button variant="primary"
+                                    onClick={e => this.changeLineType(e, "linearClosed")}>LinearClosed</Button> {}
+                            <Button variant="primary" onClick={e => this.changeLineType(e, "step")}>Step</Button> {}
+                        </div>
                     </div>
                 </div>
             </>
-
         );
     }
 }

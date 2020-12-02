@@ -47,8 +47,8 @@ class HeaderMenu extends React.Component {
             id: this.props.data[randLang][randIndex]
         }), () => {
             console.log("Random User Selected :", "id:", this.state.id, "lang:", randLang);
+            this.changeData();
         });
-        this.changeData();
     }
 
     render() {

@@ -59,6 +59,7 @@ class App extends React.Component {
     }
 
     LoadDataFromMenu(value) {
+        console.log("Sent from Menu", value);
         this.setState((prev, current) => ({
             lang: value.lang,
             id: value.id,

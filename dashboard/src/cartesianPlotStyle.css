@@ -12,8 +12,33 @@
     position: absolute !important;
     display: flow-root !important;
     top: 600px;
-    left: 10px;
+    left: 60px;
     height: 100px;
-    width: 1040px;
+    width: 1000px;
     /*background: #282c34;*/
+}
+
+.lineTypeButtons {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+}
+
+.buttonHeading{
+    position: absolute !important;
+    display: flow-root !important;
+    top: 600px;
+    left: 60px;
+    height: 100px;
+    width: 1000px;
+    font-family: "Helvetica Neue", serif;
+    font-weight: bold;
+}
+
+.buttonHeadingLineFunctions{
+    position: absolute;
+    right: 285px;
+    top: 0;
+    font-family: "Helvetica Neue", serif;
+    font-weight: bold;
 }
