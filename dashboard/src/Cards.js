@@ -1,7 +1,6 @@
 import React from 'react';
 import './cardStyle.css'
 import Card from 'react-bootstrap/Card'
-import classNames from 'classnames';
 
 let label1Col = [];
 let label2Col = [];
@@ -14,7 +13,6 @@ function initLabels(value) {
     label1Col = labels.slice(0, 10);
     label2Col = labels.slice(10, 19);
     label3Col = labels.slice(19, -1);
-    // console.log(label1Col, label2Col, label3Col);
     return labels;
 }
 
@@ -33,7 +31,6 @@ class Cards extends React.Component {
             data: this.props.data,
             labels: initLabels(this.props.data)
         }
-        // console.log(this.state.labels);
     }
 
     changeCardBg(value) {
@@ -50,11 +47,11 @@ class Cards extends React.Component {
     render() {
         return (
             <>
-                <div class={"cardsColumn1"}>
+                <div className={"cardsColumn1"}>
                     {label1Col.map((value, index) => {
                         return (
                             <Card bg="primary" text="white" className={"cards"}
-                                  style={{background: this.changeCardBg(value)}}>
+                                  style={{background: this.changeCardBg(value)}} key={value}>
                                 <Card.Body>
                                     <Card.Title>{value}</Card.Title>
                                     <Card.Text>
@@ -69,7 +66,7 @@ class Cards extends React.Component {
                     {label2Col.map((value, index) => {
                         return (
                             <Card bg="primary" text="white" className={"cards"}
-                                  style={{background: this.changeCardBg(value)}}>
+                                  style={{background: this.changeCardBg(value)}} key={value}>
                                 <Card.Body>
                                     <Card.Title>{value}</Card.Title>
                                     <Card.Text>
@@ -84,7 +81,7 @@ class Cards extends React.Component {
                     {label3Col.map((value, index) => {
                         return (
                             <Card bg="primary" text="white" className={"cards"}
-                                  style={{background: this.changeCardBg(value)}}>
+                                  style={{background: this.changeCardBg(value)}} key={value}>
                                 <Card.Body>
                                     <Card.Title>{value}</Card.Title>
                                     <Card.Text>

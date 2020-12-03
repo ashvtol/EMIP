@@ -24,7 +24,7 @@
     top: 40px;
 }
 
-.buttonHeading{
+.buttonHeading {
     position: absolute !important;
     display: flow-root !important;
     top: 600px;
@@ -35,7 +35,7 @@
     font-weight: bold;
 }
 
-.buttonHeadingLineFunctions{
+.buttonHeadingLineFunctions {
     position: absolute;
     right: 285px;
     top: 0;

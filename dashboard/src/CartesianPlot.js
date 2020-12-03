@@ -25,7 +25,7 @@ class CartesianPlot extends React.Component {
             imagePath: img1,
             lineType: "monotone",
         }
-        console.log(this.state.data);
+        // console.log(this.state.data);
     }
 
     transformData(data) {

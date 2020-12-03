@@ -67,7 +67,7 @@ class HeaderMenu extends React.Component {
                                     <span className="caret"/></button>
                                 <ul className="dropdown-menu">
                                     {Object.keys(this.state.data).map((value, index) => {
-                                        return <li onClick={() => this.changeLanguage(value)}><a href={"#"}>{value}</a>
+                                        return <li key={value} onClick={() => this.changeLanguage(value)}><a href={"#"}>{value}</a>
                                         </li>
                                     })}
                                 </ul>
@@ -80,7 +80,7 @@ class HeaderMenu extends React.Component {
                                     <span className="caret"/></button>
                                 <ul className="dropdown-menu">
                                     {this.props.data[this.state.lang].map((value) => {
-                                        return <li onClick={() => this.changeID(value)}><a href={"#"}>{value}</a></li>
+                                        return <li key={value} onClick={() => this.changeID(value)}><a href={"#"}>{value}</a></li>
                                     })}
                                 </ul>
                             </div>
