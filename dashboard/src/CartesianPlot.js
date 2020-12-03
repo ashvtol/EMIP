@@ -11,7 +11,7 @@ import img8 from './data/q2.jpg';
 
 import Button from 'react-bootstrap/Button'
 import {
-    XAxis, YAxis, CartesianGrid, Line, ComposedChart, Tooltip
+    XAxis, YAxis, CartesianGrid, Line, ComposedChart
 } from 'recharts';
 
 
