@@ -1,6 +1,7 @@
 import React from 'react';
 import './cardStyle.css'
 import Card from 'react-bootstrap/Card'
+import classNames from 'classnames';
 
 let label1Col = [];
 let label2Col = [];
@@ -35,13 +36,25 @@ class Cards extends React.Component {
         // console.log(this.state.labels);
     }
 
+    changeCardBg(value) {
+        if (value === 'correct_vehicle' || value === 'correct_rectangle') {
+            if (this.state.data[value] === 1) {
+                return "linear-gradient(to right, #76b852, #8dc26f)";
+            } else {
+                return "linear-gradient(to right, #ed213a, #93291e)";
+            }
+        }
+        return null;
+    }
+
     render() {
         return (
             <>
                 <div class={"cardsColumn1"}>
                     {label1Col.map((value, index) => {
                         return (
-                            <Card bg="primary" text="white" className={"cards"}>
+                            <Card bg="primary" text="white" className={"cards"}
+                                  style={{background: this.changeCardBg(value)}}>
                                 <Card.Body>
                                     <Card.Title>{value}</Card.Title>
                                     <Card.Text>
@@ -55,7 +68,8 @@ class Cards extends React.Component {
                 <div className={"cardsColumn2"}>
                     {label2Col.map((value, index) => {
                         return (
-                            <Card bg="primary" text="white" className={"cards"}>
+                            <Card bg="primary" text="white" className={"cards"}
+                                  style={{background: this.changeCardBg(value)}}>
                                 <Card.Body>
                                     <Card.Title>{value}</Card.Title>
                                     <Card.Text>
@@ -69,7 +83,8 @@ class Cards extends React.Component {
                 <div className={"cardsColumn3"}>
                     {label3Col.map((value, index) => {
                         return (
-                            <Card bg="primary" text="white" className={"cards"}>
+                            <Card bg="primary" text="white" className={"cards"}
+                                  style={{background: this.changeCardBg(value)}}>
                                 <Card.Body>
                                     <Card.Title>{value}</Card.Title>
                                     <Card.Text>
@@ -80,9 +95,7 @@ class Cards extends React.Component {
                         )
                     })}
                 </div>
-
             </>
-
         );
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import './headerStyle.css'
+import classNames from 'classnames';
 
 class HeaderMenu extends React.Component {
     constructor(props) {
@@ -55,6 +56,9 @@ class HeaderMenu extends React.Component {
         return (
             <div>
                 <div className={"header"}>
+                    <div className={classNames("title", "rainbow_text_animated")} >
+                        Eye Movement in Programming
+                    </div>
                     <div className={"menu"}>
                         <div id={"menuItems"}>
                             <div className="dropdown">

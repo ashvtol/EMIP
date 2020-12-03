@@ -11,7 +11,7 @@ import img8 from './data/q2.jpg';
 
 import Button from 'react-bootstrap/Button'
 import {
-    XAxis, YAxis, CartesianGrid, Line, ComposedChart
+    XAxis, YAxis, CartesianGrid, Line, ComposedChart, Tooltip
 } from 'recharts';
 
 
@@ -141,8 +141,8 @@ class CartesianPlot extends React.Component {
                             </linearGradient>
                         </defs>
                         <CartesianGrid/>
-                        <XAxis type="number" dataKey="LX" name="stature" domain={[0, 1920]} tickCount={10}/>
-                        <YAxis type="number" dataKey="LY" name="weight" domain={[0, 1080]} tickCount={10}/>
+                        <XAxis type="number" dataKey="LX" name="stature" domain={[0, 1920]} tickCount={10} unit={'px'}/>
+                        <YAxis type="number" dataKey="LY" name="weight" domain={[0, 1080]} tickCount={10} unit={'px'}/>
                         <Line
                             type={this.state.lineType}
                             dataKey="LY"
@@ -151,7 +151,7 @@ class CartesianPlot extends React.Component {
                             stroke="url(#colorUv)"
                             strokeWidth={1.5}
                         />
-                        {/*<Tooltip cursor={{strokeDasharray: '3 3'}}/>*/}
+                        {/*<Tooltip/>*/}
                     </ComposedChart>
                     <div className={"buttonHeading"}>
                         Select Image
