@@ -25,7 +25,12 @@ class CartesianPlot extends React.Component {
             imagePath: img1,
             lineType: "monotone",
         }
+        this.selectData = this.selectData.bind(this);
         // console.log(this.state.data);
+    }
+
+    selectData(value) {
+        this.props.mutateData(value);
     }
 
     transformData(data) {
@@ -135,9 +140,9 @@ class CartesianPlot extends React.Component {
                     >
                         <defs>
                             <linearGradient id="colorUv" x1="100%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stopColor="red" stopOpacity={0.3}/>
-                                <stop offset="5%" stopColor="purple" stopOpacity={0.7}/>
-                                <stop offset="98%" stopColor="red" stopOpacity={0.3}/>
+                                <stop offset="0%" stopColor="blue" stopOpacity={0.5}/>
+                                <stop offset="10%" stopColor="green" stopOpacity={0.5}/>
+                                <stop offset="100%" stopColor="blue" stopOpacity={0.5}/>
                             </linearGradient>
                         </defs>
                         <CartesianGrid/>
@@ -158,6 +163,9 @@ class CartesianPlot extends React.Component {
                         <div className={"buttonHeadingLineFunctions"}>
                             Select Line Function
                         </div>
+                        <div className={"buttonHeadingData"}>
+                            Select Data Source
+                        </div>
                     </div>
                     <div className={"buttonDiv"}>
                         <hr/>
@@ -172,6 +180,18 @@ class CartesianPlot extends React.Component {
                             <Button variant="primary"
                                     onClick={e => this.changeLineType(e, "linearClosed")}>LinearClosed</Button> {}
                             <Button variant="primary" onClick={e => this.changeLineType(e, "step")}>Step</Button> {}
+                        </div>
+                        <br/><br/>
+                        <hr/>
+                        <div className={"dataSetButtons"}>
+                            <Button variant="primary"
+                                    onClick={e => this.selectData("data50")}>Data 50</Button> {}
+                            <Button variant="primary" onClick={e => this.selectData("data150")}>Data 150</Button> {}
+                            <Button variant="primary"
+                                    onClick={e => this.selectData("data250")}>Data 250</Button> {}
+                            <Button variant="primary" style={{background: "rgb(105 150 85)"}}
+                                    onClick={e => this.props.changedData(e)}>Go</Button> {}
+
                         </div>
                     </div>
                 </div>

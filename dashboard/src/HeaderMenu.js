@@ -39,7 +39,7 @@ class HeaderMenu extends React.Component {
         this.props.mutateMenu(value);
     }
 
-    selectRandomUser(){
+    selectRandomUser() {
         let langList = Object.keys(this.state.data);
         let randLang = langList[Math.floor(Math.random() * langList.length)];
         let randIndex = Math.floor(Math.random() * this.state.data[randLang].length);
@@ -56,7 +56,7 @@ class HeaderMenu extends React.Component {
         return (
             <div>
                 <div className={"header"}>
-                    <div className={classNames("title", "rainbow_text_animated")} >
+                    <div className={classNames("title", "rainbow_text_animated")}>
                         Eye Movement in Programming
                     </div>
                     <div className={"menu"}>
@@ -67,7 +67,8 @@ class HeaderMenu extends React.Component {
                                     <span className="caret"/></button>
                                 <ul className="dropdown-menu">
                                     {Object.keys(this.state.data).map((value, index) => {
-                                        return <li key={value} onClick={() => this.changeLanguage(value)}><a href={"#"}>{value}</a>
+                                        return <li key={value} onClick={() => this.changeLanguage(value)}><a
+                                            href={"#"}>{value}</a>
                                         </li>
                                     })}
                                 </ul>
@@ -80,7 +81,8 @@ class HeaderMenu extends React.Component {
                                     <span className="caret"/></button>
                                 <ul className="dropdown-menu">
                                     {this.props.data[this.state.lang].map((value) => {
-                                        return <li key={value} onClick={() => this.changeID(value)}><a href={"#"}>{value}</a></li>
+                                        return <li key={value} onClick={() => this.changeID(value)}><a
+                                            href={"#"}>{value}</a></li>
                                     })}
                                 </ul>
                             </div>
@@ -88,6 +90,7 @@ class HeaderMenu extends React.Component {
                         <div id={"menuItems"}>
                             <div className="dropdown">
                                 <button className="btn btn-primary dropdown-toggle" type="button"
+                                        style={{background: "rgb(105 150 85)"}}
                                         data-toggle="dropdown" onClick={() => this.changeData()}> GO
                                 </button>
                             </div>

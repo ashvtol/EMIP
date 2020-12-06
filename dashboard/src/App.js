@@ -1,13 +1,15 @@
 import './App.css';
 import React from 'react';
-
-import data from './data/data_emip.json';
+import data50 from './data/data_emip_50.json';
+import data150 from './data/data_emip_150.json';
+import data250 from './data/data_emip_250.json';
 import HeaderMenu from "./HeaderMenu";
 import Cards from "./Cards";
 import CartesianPlot from "./CartesianPlot";
 
-let indexMap = new Array(data.length + 10).fill(0);
+let data = data250;
 
+let indexMap = new Array(data.length + 10).fill(0);
 // Language Options
 let languages = {}
 
@@ -46,6 +48,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            dataSource: 'data250',
             lang: "Java",
             id: 0,
             index: 0,
@@ -56,6 +59,9 @@ class App extends React.Component {
             }
         };
         this.LoadDataFromMenu = this.LoadDataFromMenu.bind(this);
+        this.LoadDataFromPlotMenuAgain = this.LoadDataFromPlotMenuAgain.bind(this);
+        this.selectDataFromPlotMenu = this.selectDataFromPlotMenu.bind(this);
+
     }
 
     LoadDataFromMenu(value) {
@@ -78,12 +84,51 @@ class App extends React.Component {
         });
     }
 
+    LoadDataFromPlotMenuAgain(e) {
+        e.preventDefault();
+        // console.log("Sent from Menu", value);
+        this.setState((prev, current) => ({
+            cardData: data[this.state.index],
+            cartesianPlotData: {
+                "coordinates": [data[this.state.index].rectangle_java, data[this.state.index].vehicle_java],
+                "lang": this.state.lang
+            }
+        }), () => {
+            // console.log("Card data changed by Menu :", value, "index:", this.state.cardData);
+        });
+    }
+
+    switchData() {
+        switch (this.state.dataSource) {
+            default:
+                data = data250;
+                break;
+            case "data150":
+                data = data150;
+                break;
+            case "data50":
+                data = data50;
+                break;
+        }
+    }
+
+    selectDataFromPlotMenu(value) {
+        this.setState((prev, current) => ({
+            dataSource: value,
+        }), () => {
+            console.log("DataSource changed:", value);
+            this.switchData();
+        });
+
+    }
+
     render() {
         return (
             <div>
                 <HeaderMenu data={languages} mutateMenu={this.LoadDataFromMenu}/>
                 <Cards data={this.state.cardData}/>
-                <CartesianPlot data={this.state.cartesianPlotData}/>
+                <CartesianPlot data={this.state.cartesianPlotData} mutateData={this.selectDataFromPlotMenu}
+                               changedData={this.LoadDataFromPlotMenuAgain}/>
             </div>
         );
     }

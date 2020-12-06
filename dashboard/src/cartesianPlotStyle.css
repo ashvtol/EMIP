@@ -42,3 +42,10 @@
     font-family: "Helvetica Neue", serif;
     font-weight: bold;
 }
+
+.buttonHeadingData {
+    position: absolute;
+    top: 85px;
+    font-family: "Helvetica Neue", serif;
+    font-weight: bold;
+}
