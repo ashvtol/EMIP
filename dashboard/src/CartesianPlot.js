@@ -8,7 +8,6 @@ import img5 from './data/vehicle_python.jpg';
 import img6 from './data/vehicle_scala.jpg';
 import img7 from './data/q1.jpg';
 import img8 from './data/q2.jpg';
-
 import Button from 'react-bootstrap/Button'
 import {
     XAxis, YAxis, CartesianGrid, Line, ComposedChart
@@ -191,7 +190,6 @@ class CartesianPlot extends React.Component {
                                     onClick={e => this.selectData("data250")}>Data 250</Button> {}
                             <Button variant="primary" style={{background: "rgb(105 150 85)"}}
                                     onClick={e => this.props.changedData(e)}>Go</Button> {}
-
                         </div>
                     </div>
                 </div>

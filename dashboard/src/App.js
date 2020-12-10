@@ -93,9 +93,7 @@ class App extends React.Component {
                 "coordinates": [data[this.state.index].rectangle_java, data[this.state.index].vehicle_java],
                 "lang": this.state.lang
             }
-        }), () => {
-            // console.log("Card data changed by Menu :", value, "index:", this.state.cardData);
-        });
+        }));
     }
 
     switchData() {
