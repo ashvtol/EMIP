@@ -194,7 +194,7 @@ class CartesianPlot extends React.Component {
                             Select Line Function
                         </div>
                         <div className={"buttonHeadingData"}>
-                            Select Data Source
+                            Select Data Sample Rate
                         </div>
                     </div>
                     <div className={"buttonDiv"}>
