@@ -53,7 +53,10 @@ class App extends React.Component {
             id: 0,
             index: 0,
             benchmarkIndex: 200,
-            cardData: data[indexMap[200]],
+            cardData: {
+                "coordinates": data[indexMap[200]],
+                "benchmark": data[indexMap[200]],
+            },
             benchmarkToggle: false,
             cartesianPlotData: {
                 "coordinates": [data[indexMap[200]].rectangle_java, data[indexMap[200]].vehicle_java],
@@ -80,7 +83,10 @@ class App extends React.Component {
         }), () => {
             console.log("Parent state changed by Menu :", value, "index:", this.state.index);
             this.setState((prev, current) => ({
-                cardData: data[indexMap[this.state.index]],
+                cardData: {
+                    "coordinates": data[indexMap[this.state.index]],
+                    "benchmark": data[indexMap[this.state.benchmarkIndex]],
+                },
                 cartesianPlotData: {
                     "coordinates": [data[indexMap[this.state.index]].rectangle_java, data[indexMap[this.state.index]].vehicle_java],
                     "benchmark": [data[indexMap[this.state.benchmarkIndex]].rectangle_java, data[indexMap[this.state.benchmarkIndex]].vehicle_java],
@@ -99,7 +105,10 @@ class App extends React.Component {
         // console.log("Sent from Menu", value);
         // languages["benchmarkToggle"] = false;
         this.setState((prev, current) => ({
-            cardData: data[this.state.index],
+            cardData: {
+                "coordinates": data[indexMap[this.state.index]],
+                "benchmark": data[indexMap[this.state.benchmarkIndex]],
+            },
             benchmarkToggle: true,
             cartesianPlotData: {
                 "coordinates": [data[indexMap[this.state.index]].rectangle_java, data[indexMap[this.state.index]].vehicle_java],

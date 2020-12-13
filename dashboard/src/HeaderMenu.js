@@ -96,7 +96,7 @@ class HeaderMenu extends React.Component {
                             <div className="dropdown">
                                 <button className="btn btn-primary dropdown-toggle newbtn" type="button"
                                         data-toggle="dropdown"> {this.state.lang}
-                                    <span className="caret"/></button>
+                                    </button>
                                 <ul className="dropdown-menu">
                                     {Object.keys(this.state.data).map((value, index) => {
                                         return <li key={value} onClick={() => this.changeLanguage(value)}><a
@@ -110,7 +110,7 @@ class HeaderMenu extends React.Component {
                             <div className="dropdown">
                                 <button className="btn btn-primary dropdown-toggle newbtn" type="button"
                                         data-toggle="dropdown"> {this.state.id}
-                                    <span className="caret"/></button>
+                                    </button>
                                 <ul className="dropdown-menu">
                                     {this.props.data.menuData[this.state.lang].map((value) => {
                                         return <li key={value} onClick={() => this.changeID(value)}><a
@@ -129,14 +129,14 @@ class HeaderMenu extends React.Component {
                         </div>
                         <div id={"menuItems"}>
                             <div className="dropdown">
-                                <button className="btn btn-primary dropdown-toggle" type="button"
+                                <button className="btn btn-primary" type="button"
                                         data-toggle="dropdown" onClick={() => this.selectRandomUser()}>Random User
                                 </button>
                             </div>
                         </div>
                         <div id={"menuItems"}>
                             <div className="dropdown">
-                                <button className="btn btn-primary dropdown-toggle newbtn" type="button"
+                                <button className="btn btn-primary newbtn" type="button"
                                         data-toggle="dropdown"
                                         style={{background: this.getToggleBg()}}
                                         onClick={() => this.toggleBenchMark()}>Benchmark Toggle
@@ -147,7 +147,7 @@ class HeaderMenu extends React.Component {
                             <div className="dropdown">
                                 <button className="btn btn-primary dropdown-toggle newbtn" type="button"
                                         data-toggle="dropdown"> {this.state.benchmarkIndex}
-                                    <span className="caret"/></button>
+                                    </button>
                                 <ul className="dropdown-menu">
                                     {this.props.data.menuData[this.state.lang].map((value) => {
                                         return <li key={value} onClick={() => this.changeBenchmark(value)}><a

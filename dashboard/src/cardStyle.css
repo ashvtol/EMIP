@@ -12,36 +12,11 @@
     z-index: 10;
 }
 
-.cardsColumn1 {
+.tableCSS {
     position: absolute;
     display: block;
-    right: 380px;
-    top: 70px;
-
-}
-
-.cardsColumn2 {
-    position: absolute;
-    display: block;
-    right: 210px;
-    top: 70px;
-}
-
-.cardsColumn3 {
-    position: absolute;
-    display: block;
-    right: 40px;
-    top: 70px;
-}
-
-.cards {
-    margin-bottom: 10px;
-    width: 15rem !important;
-    height: auto;
-    padding: 1px 10px 1px;
-    background: linear-gradient(to right, #ff00cc, #333399); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    border-radius: 5px;
-    text-align: center;
-    font-size: 12px !important;
+    right: 400px;
+    top: 60px;
+    width: 120px !important;
 }
 

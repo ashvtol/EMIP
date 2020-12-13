@@ -1,18 +1,15 @@
 import React from 'react';
-import './cardStyle.css'
-import Card from 'react-bootstrap/Card'
+import './cardStyle.css';
+import Table from 'react-bootstrap/Table';
 
-let label1Col = [];
-let label2Col = [];
-let label3Col = [];
 
+let labelsAll = [];
 
 function initLabels(value) {
     let labels = Object.keys(value);
-    labels = labels.filter(item => (item !== 'vehicle_java' && item !== 'rectangle_java'));
-    label1Col = labels.slice(0, 10);
-    label2Col = labels.slice(10, 19);
-    label3Col = labels.slice(19, -1);
+    let filterList = ["vehicle_java", "rectangle_java", "time_experiment_language", "answer_rectangle", "answer_vehicle", "makeup", "stimulus_rectangle", "stimulus_vehicle", "time_experiment_language_original", "frequency_experiment_language", "other_languages_original", "frequency_other_language"]
+    labels = labels.filter(item => (!filterList.includes(item)));
+    labelsAll = labels;
     return labels;
 }
 
@@ -28,17 +25,29 @@ class Cards extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: this.props.data,
-            labels: initLabels(this.props.data)
+            data: this.props.data.coordinates,
+            benchmark: this.props.data.benchmark,
+            labels: initLabels(this.props.data.coordinates)
         }
     }
 
     changeCardBg(value) {
         if (value === 'correct_vehicle' || value === 'correct_rectangle') {
-            if (this.state.data[value] === 1) {
-                return "linear-gradient(to right, #76b852, #8dc26f)";
+            if (this.state.data.coordinates[value] === 1) {
+                return "linear-gradient(to right, #76b852, #76b852)";
             } else {
-                return "linear-gradient(to right, #ed213a, #93291e)";
+                return "linear-gradient(to right, #ed213a, #ed213a)";
+            }
+        }
+        return null;
+    }
+
+    changeCardBg1(value) {
+        if (value === 'correct_vehicle' || value === 'correct_rectangle') {
+            if (this.state.data.benchmark[value] === 1) {
+                return "linear-gradient(to right, #76b852, #76b852)";
+            } else {
+                return "linear-gradient(to right, #ed213a, #ed213a)";
             }
         }
         return null;
@@ -47,50 +56,29 @@ class Cards extends React.Component {
     render() {
         return (
             <>
-                <div className={"cardsColumn1"}>
-                    {label1Col.map((value, index) => {
-                        return (
-                            <Card bg="primary" text="white" className={"cards"}
-                                  style={{background: this.changeCardBg(value)}} key={value}>
-                                <Card.Body>
-                                    <Card.Title>{value}</Card.Title>
-                                    <Card.Text>
-                                        {this.state.data[value]}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        )
-                    })}
-                </div>
-                <div className={"cardsColumn2"}>
-                    {label2Col.map((value, index) => {
-                        return (
-                            <Card bg="primary" text="white" className={"cards"}
-                                  style={{background: this.changeCardBg(value)}} key={value}>
-                                <Card.Body>
-                                    <Card.Title>{value}</Card.Title>
-                                    <Card.Text>
-                                        {this.state.data[value]}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        )
-                    })}
-                </div>
-                <div className={"cardsColumn3"}>
-                    {label3Col.map((value, index) => {
-                        return (
-                            <Card bg="primary" text="white" className={"cards"}
-                                  style={{background: this.changeCardBg(value)}} key={value}>
-                                <Card.Body>
-                                    <Card.Title>{value}</Card.Title>
-                                    <Card.Text>
-                                        {this.state.data[value]}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        )
-                    })}
+                <div className={"tableCSS"}>
+                    <Table hover striped={true}>
+                        <thead>
+                        <tr>
+                            <th>Metadata</th>
+                            <th>Current</th>
+                            <th>BenchMark</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {labelsAll.map((value, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{value}</td>
+                                    <td style={{background: this.changeCardBg(value)}} key={value}>
+                                        {this.state.data.coordinates[value]}</td>
+                                    <td style={{background: this.changeCardBg1(value)}} key={value}>
+                                        {this.state.data.benchmark[value]}</td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </Table>
                 </div>
             </>
         );
