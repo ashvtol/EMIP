@@ -12,17 +12,19 @@ import Button from 'react-bootstrap/Button'
 import {
     XAxis, YAxis, CartesianGrid, Line, ComposedChart
 } from 'recharts';
-
+import Legend from "recharts/lib/component/Legend";
 
 class CartesianPlot extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: this.transformData(this.props.data.coordinates),
+            benchmarkData: this.transformData(this.props.data.benchmark),
             lang: this.props.data.lang,
             index: 0,
             imagePath: img1,
             lineType: "monotone",
+            benchmarkToggle: this.props.data.benchmarkToggle
         }
         this.selectData = this.selectData.bind(this);
         // console.log(this.state.data);
@@ -49,7 +51,7 @@ class CartesianPlot extends React.Component {
             rectangleData.push(tempObj1);
             vehicleData.push(tempObj2);
         }
-
+        // console.log([rectangleData, vehicleData]);
         return [rectangleData, vehicleData];
     }
 
@@ -57,7 +59,9 @@ class CartesianPlot extends React.Component {
         if (prevProps.data !== this.props.data) {
             this.setState((prev, current) => ({
                 data: this.transformData(this.props.data.coordinates),
-                lang: this.props.data.lang
+                benchmarkData: this.transformData(this.props.data.benchmark),
+                lang: this.props.data.lang,
+                benchmarkToggle: this.props.data.benchmarkToggle
             }), () => {
                 this.setState((prev, current) => ({
                     imagePath: this.makePath()
@@ -89,6 +93,19 @@ class CartesianPlot extends React.Component {
             })
 
         });
+    }
+
+    populateLegend() {
+        if (this.state.benchmarkToggle) {
+            return [
+                {id: 'LY', value: 'Benchmark', type: 'line', color: "rgb(255 204 204)"},
+                {id: 'LY', value: 'Current', type: 'line', color: '#82ca9d'},
+            ]
+        } else {
+            return [
+                {id: 'LY', value: 'Current', type: 'line', color: '#82ca9d'},
+            ]
+        }
     }
 
     makePath() {
@@ -135,13 +152,17 @@ class CartesianPlot extends React.Component {
                         margin={{
                             right: 20, bottom: 20, left: 10,
                         }}
-                        data={this.state.data[this.state.index]}
                     >
                         <defs>
                             <linearGradient id="colorUv" x1="100%" y1="0%" x2="0%" y2="100%">
                                 <stop offset="0%" stopColor="blue" stopOpacity={0.5}/>
                                 <stop offset="10%" stopColor="green" stopOpacity={0.5}/>
                                 <stop offset="100%" stopColor="blue" stopOpacity={0.5}/>
+                            </linearGradient>
+                            <linearGradient id="colorUv1" x1="50%" y1="0%" x2="0%" y2="50%">
+                                {/*<stop offset="0%" stopColor="blue" stopOpacity={0.2}/>*/}
+                                {/*<stop offset="10%" stopColor="green" stopOpacity={0.2}/>*/}
+                                <stop offset="100%" stopColor="red" stopOpacity={0.2}/>
                             </linearGradient>
                         </defs>
                         <CartesianGrid/>
@@ -154,7 +175,17 @@ class CartesianPlot extends React.Component {
                             fillOpacity={1}
                             stroke="url(#colorUv)"
                             strokeWidth={1.5}
+                            data={this.state.data[this.state.index]}
                         />
+                        <Legend payload={this.populateLegend()}/>
+                        s{this.state.benchmarkToggle && <Line
+                        type={this.state.lineType}
+                        dataKey="LY"
+                        dot={false}
+                        data={this.state.benchmarkData[this.state.index]}
+                        stroke="url(#colorUv1)"
+                        strokeWidth={1.5}
+                    />}
                         {/*<Tooltip/>*/}
                     </ComposedChart>
                     <div className={"buttonHeading"}>

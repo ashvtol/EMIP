@@ -21,6 +21,13 @@
     font-size: 12px;
 }
 
+.newbtn {
+    height: 25px !important;
+    width: 100% !important;
+    line-height: 10px !important;
+    font-size: 12px;
+}
+
 .caret {
     margin-left: 5px !important;
 }

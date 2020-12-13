@@ -28,7 +28,6 @@ function initMenuItems() {
             languages[itr.experiment_language] = new Set()
         langSet.add(itr.experiment_language);
     }
-
     for (let str in languages) {
         languages[str] = Array.from(languages[str]);
     }
@@ -48,19 +47,25 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            menuData: languages,
             dataSource: 'data250',
             lang: "Java",
             id: 0,
             index: 0,
-            cardData: data[0],
+            benchmarkIndex: 200,
+            cardData: data[indexMap[200]],
+            benchmarkToggle: false,
             cartesianPlotData: {
-                "coordinates": [data[0].rectangle_java, data[0].vehicle_java],
-                "lang": "Java"
+                "coordinates": [data[indexMap[200]].rectangle_java, data[indexMap[200]].vehicle_java],
+                "benchmark": [data[indexMap[200]].rectangle_java, data[indexMap[200]].vehicle_java],
+                "lang": "Java",
+                "benchmarkToggle": false,
             }
         };
         this.LoadDataFromMenu = this.LoadDataFromMenu.bind(this);
         this.LoadDataFromPlotMenuAgain = this.LoadDataFromPlotMenuAgain.bind(this);
         this.selectDataFromPlotMenu = this.selectDataFromPlotMenu.bind(this);
+        // console.log(this.state);
 
     }
 
@@ -69,17 +74,22 @@ class App extends React.Component {
         this.setState((prev, current) => ({
             lang: value.lang,
             id: value.id,
-            index: indexMap[value.id],
+            index: value.id,
+            benchmarkToggle: value.benchmarkToggle,
+            benchmarkIndex: value.benchmarkIndex
         }), () => {
             console.log("Parent state changed by Menu :", value, "index:", this.state.index);
             this.setState((prev, current) => ({
-                cardData: data[this.state.index],
+                cardData: data[indexMap[this.state.index]],
                 cartesianPlotData: {
-                    "coordinates": [data[this.state.index].rectangle_java, data[this.state.index].vehicle_java],
-                    "lang": this.state.lang
+                    "coordinates": [data[indexMap[this.state.index]].rectangle_java, data[indexMap[this.state.index]].vehicle_java],
+                    "benchmark": [data[indexMap[this.state.benchmarkIndex]].rectangle_java, data[indexMap[this.state.benchmarkIndex]].vehicle_java],
+                    "lang": this.state.lang,
+                    "benchmarkToggle": this.state.benchmarkToggle,
+                    "benchmarkIndex": this.state.benchmarkIndex
                 }
             }), () => {
-                console.log("Card data changed by Menu :", value, "index:", this.state.cardData);
+                console.log("Card data changed by Menu :", value, "index:", this.state.cardData, "toggle", this.state.benchmarkToggle);
             });
         });
     }
@@ -87,13 +97,18 @@ class App extends React.Component {
     LoadDataFromPlotMenuAgain(e) {
         e.preventDefault();
         // console.log("Sent from Menu", value);
+        // languages["benchmarkToggle"] = false;
         this.setState((prev, current) => ({
             cardData: data[this.state.index],
+            benchmarkToggle: true,
             cartesianPlotData: {
-                "coordinates": [data[this.state.index].rectangle_java, data[this.state.index].vehicle_java],
+                "coordinates": [data[indexMap[this.state.index]].rectangle_java, data[indexMap[this.state.index]].vehicle_java],
+                "benchmark": [data[indexMap[this.state.benchmarkIndex]].rectangle_java, data[indexMap[this.state.benchmarkIndex]].vehicle_java],
                 "lang": this.state.lang
             }
-        }));
+        }), () => {
+            console.log(this.state.benchmarkToggle);
+        });
     }
 
     switchData() {
@@ -114,16 +129,18 @@ class App extends React.Component {
         this.setState((prev, current) => ({
             dataSource: value,
         }), () => {
-            console.log("DataSource changed:", value);
+            console.log("DataSource changed:", this.state.dataSource);
             this.switchData();
         });
-
     }
 
     render() {
         return (
             <div>
-                <HeaderMenu data={languages} mutateMenu={this.LoadDataFromMenu}/>
+                <HeaderMenu data={{
+                    "menuData": this.state.menuData,
+                    "benchmarkToggle": this.state.benchmarkToggle,
+                }} mutateMenu={this.LoadDataFromMenu}/>
                 <Cards data={this.state.cardData}/>
                 <CartesianPlot data={this.state.cartesianPlotData} mutateData={this.selectDataFromPlotMenu}
                                changedData={this.LoadDataFromPlotMenuAgain}/>
