@@ -88,7 +88,7 @@ class HeaderMenu extends React.Component {
         return (
             <div>
                 <div className={"header"}>
-                    <div className={classNames("title", "rainbow_text_animated")}>
+                    <div className={classNames("title")}>
                         Eye Movement in Programming
                     </div>
                     <div className={"menu"}>
